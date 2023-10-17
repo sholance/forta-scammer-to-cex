@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-const API_KEY = "2f9e9143-604c-4900-ae88-d67fc9449a2a";
+const API_KEY = process.env.ZETTABLOCK_API_KEY || "";
 
 const options = {
   method: 'POST',
