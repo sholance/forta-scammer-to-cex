@@ -24,8 +24,31 @@ let lastBlock = 0;
 let cachedLabels: Label[] | undefined;
 
 const initialize: Initialize = async () => {
-  // Initialize any necessary variables or configurations
+  cachedLabels = await fetchLabels();
+  // const resCex = await getCex();
+  // console.log(resCex);
 };
+
+async function fetchLabels(): Promise<Label[]> {
+  let startingCursor = undefined;
+
+  try {
+    const results: LabelsResponse = await getLabels({
+      sourceIds: [SCAMMER_BOT_ID],
+      createdSince: 1696114800000,
+      labels: ['scammer'],
+      startingCursor
+    });
+    startingCursor = results.pageInfo.endCursor;
+
+    console.log('Labels fetched:', results.labels.length);
+
+    return results.labels;
+  } catch (error) {
+    console.error('An error occurred while fetching labels:', error);
+    return [];
+  }
+}
 
 export async function handleTransaction(txEvent: TransactionEvent): Promise<Finding[]> {
   const findings: Finding[] = [];
@@ -39,7 +62,12 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
   transactionsProcessed += 1;
   // const resCex = await getCex();
   // console.log(resCex);
-  if (txEvent.blockNumber % 300 === 0) {
+  console.log(cachedLabels?.length)
+
+  // Refresh cached labels every 300 blocks
+  if (lastBlock % 300 === 0) {
+    cachedLabels = await fetchLabels();
+  }
 
     try {
       const { from, to, transaction } = txEvent;
@@ -49,24 +77,12 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
       const cexDepositAddress = to as string;
 
       const transfers = txEvent.filterLog([TRANSFER_EVENT]);
-      if (!cachedLabels) {
-        const results: LabelsResponse = await getLabels({
-          sourceIds: [SCAMMER_BOT_ID],
-          createdSince: 1696114800000,
-          labels: ['scammer'],
-          // first: 10000,
-        });
-
-        cachedLabels = results.labels;
-      }
-
       // Check if the to address is in CEX_ADDRESSES
-      if (transfers.length > 0 && (CEX_ADDRESSES.includes(to!) || CEX_ADDRESSES_v2.includes(to!))) {
-        const cexName = getCexName(to!); // Function to retrieve the CEX name based on the address
-        console.log(cachedLabels.length)
-
-        // Check if the from address is a scammer and create a finding
-        if (cachedLabels.some((label) => label.metadata?.address_type === 'EOA' && label.entity === from)) {
+      if (CEX_ADDRESSES.includes(to!) || CEX_ADDRESSES_v2.includes(to!)) {
+        const cexName = getCexName(to!); // Function to retrieve the CEX name based on the address,
+        const scammerLabel = cachedLabels?.find((label) => label.metadata?.address_type === 'EOA' && from?.includes(label.entity));
+        // cheks to see if the from address is an EOA and labelled scammer
+        if (scammerLabel) {
           findings.push(
             Finding.fromObject({
               name: 'Known Scammer Asset Deposit',
@@ -87,10 +103,8 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
         }
       }
     } catch (error) {
-      // Handle the error here
       console.error('An error occurred while processing the transaction:', error);
     }
-  }
 
   processFindings(findings);
 
@@ -99,8 +113,8 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
 
 function getCexName(address: string): string {
   // Function to retrieve the CEX name based on the address
-  // Replace with the actual implementation
-  return 'Binance';
+  // will be gotten from zettablock label
+  return 'Cex';
 }
 
 export default {

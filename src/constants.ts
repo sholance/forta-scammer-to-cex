@@ -8,10 +8,18 @@ export const ALERT_ERC20_ASSET_DEPOSIT = 'ERC20-ASSET-DEPOSIT';
 export const ERC_721_TRANSFER_EVENT =
   "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)";
 export const TRANSFER_EVENT = "event Transfer(address indexed from, address indexed to, uint256 value)";
-// export const CEXES: [number, string, string, string][] = [
-//     [1, "0x4e5b2e1dc63f6b91cb6cd759936495434c7e972f", "FixFloat", "2000000000000000000"],
-//     [56, "0x4727250679294802377dd6ca6541b8e459077c95", "FixFloat", "10000000000000000000"]
-//   ];
+export const SYMBOL_ABI_LIST = [
+  'function symbol() public view returns (string)',
+  'function symbol() public view returns (string memory)',
+  'function symbol() public view override returns (string memory)',
+  'function symbol() external view returns (string)',
+  'function symbol() external view returns (string memory)',
+  'function symbol() public pure returns (string)',
+  'function symbol() public pure returns (string memory)',
+  'function symbol() public virtual view returns (string)',
+  'function symbol() public virtual view returns (string memory)',
+  'function symbol() public virtual override view returns (string memory)'
+];
 export const CEX_ADDRESSES = [
   "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be", // Binance
   "0x85b931a32a0725be14285b66f1a22178c672d69b",
