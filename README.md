@@ -2,7 +2,7 @@
 
 ## Description
 
-The Forta Detection Bot focuses on detecting known scammers depositing funds into centralized exchanges (CEXes). It generates the following types of alerts:
+This Forta Bot runs to detect known scammers deposits into centralized exchanges (CEXes). It generates the following types of alerts:
 
 NATIVE-ASSET-DEPOSIT: This alert is triggered when a known scammer deposits native assets (e.g., ETH) into a CEX. The alert provides information about the source address, the amount deposited, the asset symbol, the CEX deposit address, and the CEX name.
 
