@@ -1,0 +1,70 @@
+Timestamp: 2023-10-23T11:30:51.671Z
+Batch: 1698060651
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x19f00b3a7b6f55c9da966fe3723251784a797fa7 deposited 0xbeb063f6c8f65e50 symbol to CEX 0x28c6c06298d514db089934071355e5743bf21d60 Cex
+Metadata: {"source_address":"0x19f00b3a7b6f55c9da966fe3723251784a797fa7","amount":"0xbeb063f6c8f65e50","symbol":"symbol","ERC-20-contract-address":"0x28c6c06298d514db089934071355e5743bf21d60","CEX_deposit_address":"0x28c6c06298d514db089934071355e5743bf21d60","CEX_name":"Cex"}
+Labels: []
+
+Timestamp: 2023-10-23T11:41:42.656Z
+Batch: 1698061302
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xe410cd3cb59fbabbd0698886c7b658aded7d044f deposited 0x0 symbol to CEX 0x4fabb145d64652a948d72533023f6e7a623c7c53 Cex
+Metadata: {"source_address":"0xe410cd3cb59fbabbd0698886c7b658aded7d044f","amount":"0x0","symbol":"symbol","ERC-20-contract-address":"0x4fabb145d64652a948d72533023f6e7a623c7c53","CEX_deposit_address":"0x4fabb145d64652a948d72533023f6e7a623c7c53","CEX_name":"Cex"}
+Labels: []
+
+Timestamp: 2023-10-23T12:00:46.026Z
+Batch: 1698062446
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x19f00b3a7b6f55c9da966fe3723251784a797fa7 deposited 0xb456151cd8bbf890 symbol to CEX 0x28c6c06298d514db089934071355e5743bf21d60 Cex
+Metadata: {"source_address":"0x19f00b3a7b6f55c9da966fe3723251784a797fa7","amount":"0xb456151cd8bbf890","symbol":"symbol","ERC-20-contract-address":"0x28c6c06298d514db089934071355e5743bf21d60","CEX_deposit_address":"0x28c6c06298d514db089934071355e5743bf21d60","CEX_name":"Cex"}
+Labels: []
+
+Timestamp: 2023-10-23T12:06:12.642Z
+Batch: 1698062772
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x33b792d3a0783c6340f05352b711e833185045d4 deposited 0xd4210056fe19c8 symbol to CEX 0x28c6c06298d514db089934071355e5743bf21d60 Cex
+Metadata: {"source_address":"0x33b792d3a0783c6340f05352b711e833185045d4","amount":"0xd4210056fe19c8","symbol":"symbol","ERC-20-contract-address":"0x28c6c06298d514db089934071355e5743bf21d60","CEX_deposit_address":"0x28c6c06298d514db089934071355e5743bf21d60","CEX_name":"Cex"}
+Labels: []
+
+Timestamp: 2023-10-23T12:44:21.622Z
+Batch: 1698065061
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x33b792d3a0783c6340f05352b711e833185045d4 deposited 59708980405869000 symbol to CEX 0x28c6c06298d514db089934071355e5743bf21d60 cexName
+Metadata: {"source_address":"0x33b792d3a0783c6340f05352b711e833185045d4","amount":"0xd4210056fe19c8"}
+Labels: []
+
+Timestamp: 2023-10-23T13:08:19.541Z
+Batch: 1698066499
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x33b792d3a0783c6340f05352b711e833185045d4 deposited 59708980405869000 [object Promise] to CEX 0x28c6c06298d514db089934071355e5743bf21d60 cexName
+Metadata: {"source_address":"0x33b792d3a0783c6340f05352b711e833185045d4","amount":"0xd4210056fe19c8"}
+Labels: []
+
+Timestamp: 2023-10-23T13:08:37.534Z
+Batch: 1698066517
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x33b792d3a0783c6340f05352b711e833185045d4 deposited 59708980405869000 [object Promise] to CEX 0x28c6c06298d514db089934071355e5743bf21d60 cexName
+Metadata: {"source_address":"0x33b792d3a0783c6340f05352b711e833185045d4","amount":"0xd4210056fe19c8"}
+Labels: []
+
+Timestamp: 2023-10-24T22:06:04.975Z
+Batch: 1698185164
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x58edf78281334335effa23101bbe3371b6a36a51 deposited 0 UNKNOWN to CEX 0x4fabb145d64652a948d72533023f6e7a623c7c53 cexName
+Metadata: {"source_address":"0x58edf78281334335effa23101bbe3371b6a36a51","amount":"0x0"}
+Labels: []
+
+Timestamp: 2023-10-24T22:33:27.163Z
+Batch: 1698186807
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x8f2f2f0faa6df4fa6c182bf9c1ab3e426020a56c deposited 19412000000000000 UNKNOWN to CEX 0x75e89d5979e4f6fba9f97c104c2f0afb3f1dcb88 cexName
+Metadata: {"source_address":"0x8f2f2f0faa6df4fa6c182bf9c1ab3e426020a56c","amount":"0x44f71c74614000"}
+Labels: []
+
+Timestamp: 2023-10-24T22:48:36.964Z
+Batch: 1698187716
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x8f2f2f0faa6df4fa6c182bf9c1ab3e426020a56c deposited 79391000000000000 UNKNOWN to CEX 0x75e89d5979e4f6fba9f97c104c2f0afb3f1dcb88 cexName
+Metadata: {"source_address":"0x8f2f2f0faa6df4fa6c182bf9c1ab3e426020a56c","amount":"0x11a0db1a15cf000"}
+Labels: []
+

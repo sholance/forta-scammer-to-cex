@@ -11,3 +11,4 @@ forta.config.json
 **/artifacts/
 publish.log
 note.md
+src/key.ts

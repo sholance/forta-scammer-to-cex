@@ -4,51 +4,37 @@ import {
   FindingType,
   Initialize,
   TransactionEvent,
-  getLabels,
-  LabelsResponse,
-  Label,
+  ethers,
 } from 'forta-agent';
-
 import {
   ALERT_ERC20_ASSET_DEPOSIT,
   CEX_ADDRESSES,
   TRANSFER_EVENT,
-  SCAMMER_BOT_ID,
-  CEX_ADDRESSES_v2
+  CEX_ADDRESSES_v2,
 } from './constants';
 import { getCex } from './newQuery';
 import { processFindings } from './processFindings';
+import * as fs from 'fs';
+import * as path from 'path';
+import { parse } from 'csv-parse';
+import { isScammer } from './scammerScan';
+import { getTokenSymbol } from './utils';
 
 let transactionsProcessed = 0;
 let lastBlock = 0;
-let cachedLabels: Label[] | undefined;
+let cexList = new Set();
 
 const initialize: Initialize = async () => {
-  cachedLabels = await fetchLabels();
-  // const resCex = await getCex();
-  // console.log(resCex);
-};
 
-async function fetchLabels(): Promise<Label[]> {
-  let startingCursor = undefined;
-
-  try {
-    const results: LabelsResponse = await getLabels({
-      sourceIds: [SCAMMER_BOT_ID],
-      createdSince: 1696114800000,
-      labels: ['scammer'],
-      startingCursor
-    });
-    startingCursor = results.pageInfo.endCursor;
-
-    console.log('Labels fetched:', results.labels.length);
-
-    return results.labels;
-  } catch (error) {
-    console.error('An error occurred while fetching labels:', error);
-    return [];
+  const csvFilePath = path.resolve(__dirname, '../result.csv');
+  const fileExists = fs.existsSync(csvFilePath);
+  if (!fileExists) {
+    await getCex();
+  } else {
+    console.log('CSV file exists. Skipping getCex query.');
+    readAddressesFromFile();
   }
-}
+};
 
 export async function handleTransaction(txEvent: TransactionEvent): Promise<Finding[]> {
   const findings: Finding[] = [];
@@ -58,53 +44,52 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
     console.log(`-----Transactions processed in block ${txEvent.blockNumber - 1}: ${transactionsProcessed}-----`);
     transactionsProcessed = 0;
   }
-
   transactionsProcessed += 1;
-  // const resCex = await getCex();
-  // console.log(resCex);
-  console.log(cachedLabels?.length)
 
-  // Refresh cached labels every 300 blocks
-  if (lastBlock % 300 === 0) {
-    cachedLabels = await fetchLabels();
-  }
+  try {
+    const { from, to, transaction } = txEvent;
+    const { value } = transaction;
 
-    try {
-      const { from, to, transaction } = txEvent;
-      const { value } = transaction;
-      // const resCex = await getCex();
-      // console.log(resCex);
-      const cexDepositAddress = to as string;
-
-      const transfers = txEvent.filterLog([TRANSFER_EVENT]);
-      // Check if the to address is in CEX_ADDRESSES
-      if (CEX_ADDRESSES.includes(to!) || CEX_ADDRESSES_v2.includes(to!)) {
-        const cexName = getCexName(to!); // Function to retrieve the CEX name based on the address,
-        const scammerLabel = cachedLabels?.find((label) => label.metadata?.address_type === 'EOA' && from?.includes(label.entity));
-        // cheks to see if the from address is an EOA and labelled scammer
-        if (scammerLabel) {
-          findings.push(
-            Finding.fromObject({
-              name: 'Known Scammer Asset Deposit',
-              description: `Known scammer ${from} deposited ${value} ${"symbol"} to CEX ${cexDepositAddress} ${cexName}`,
-              alertId: ALERT_ERC20_ASSET_DEPOSIT,
-              severity: FindingSeverity.Low,
-              type: FindingType.Info,
-              metadata: {
-                source_address: from,
-                amount: value,
-                symbol: "symbol"!,
-                'ERC-20-contract-address': to!,
-                CEX_deposit_address: cexDepositAddress,
-                CEX_name: cexName,
-              },
-            })
-          );
-        }
-      }
-    } catch (error) {
-      console.error('An error occurred while processing the transaction:', error);
+    function isCsvAddress(address: string): boolean {
+      return cexList.has(address);
     }
+
+    const cexDepositAddress = to as string;
+
+    const transfers = txEvent.filterLog([TRANSFER_EVENT]);
+
+
+    if (CEX_ADDRESSES.includes(to!) || CEX_ADDRESSES_v2.includes(to!) || isCsvAddress(to!)) {
+      let block = txEvent.blockNumber
+      const cexName = getCexName(to!);
+      const isFromScammer = await isScammer(from); // Check if from address is a scammer
+      const txValue = ethers.BigNumber.from(value);
+
+      if (isFromScammer) {
+        const symbol = await getTokenSymbol(block, from)
+
+        findings.push(
+          Finding.fromObject({
+            name: 'Known Scammer Asset Deposit',
+            description: `Known scammer ${from} deposited ${txValue} ${symbol} to CEX ${cexDepositAddress} ${"cexName"}`,
+            alertId: ALERT_ERC20_ASSET_DEPOSIT,
+            severity: FindingSeverity.Low,
+            type: FindingType.Info,
+            metadata: {
+              source_address: from,
+              amount: value,
+              // symbol: "symbol"!,
+              // 'ERC-20-contract-address': to!,
+              // CEX_deposit_address: cexDepositAddress,
+              // CEX_name: cexName,
+            },
+          })
+        );
+      }
+    }
+  } catch (error) {
+    console.error('An error occurred while processing the transaction:', error);
+  }
 
   processFindings(findings);
 
@@ -112,9 +97,38 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
 }
 
 function getCexName(address: string): string {
-  // Function to retrieve the CEX name based on the address
-  // will be gotten from zettablock label
   return 'Cex';
+}
+
+const inputFile = path.resolve(__dirname, '../result.csv');
+
+async function readAddressesFromFile(): Promise<void> {
+  const addresses: { to_address: string; from_address: string; name: string }[] = [];
+
+  const parser = fs.createReadStream(inputFile).pipe(
+    parse({
+      delimiter: ',',
+      columns: true,
+    })
+  );
+
+  parser
+    .on('data', function (record) {
+      addresses.push({
+        to_address: record.to_address,
+        from_address: record.from_address,
+        name: record.name,
+      });
+    })
+    .on('error', function (error) {
+      console.error('An error occurred while parsing the CSV file:', error);
+    })
+    .on('end', function () {
+      for (const address of addresses) {
+        cexList.add(address.to_address);
+      }
+      console.log(addresses.length);
+    });
 }
 
 export default {
