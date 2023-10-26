@@ -68,3 +68,381 @@ Description: Known scammer 0x8f2f2f0faa6df4fa6c182bf9c1ab3e426020a56c deposited 
 Metadata: {"source_address":"0x8f2f2f0faa6df4fa6c182bf9c1ab3e426020a56c","amount":"0x11a0db1a15cf000"}
 Labels: []
 
+Timestamp: 2023-10-24T23:46:12.041Z
+Batch: 1698191172
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xbbda49855af861d6647a9722817385dd0e832b3b deposited 21667316966411793000 UNKNOWN to CEX 0xdb044b8298e04d442fdbe5ce01b8cc8f77130e33 cexName
+Metadata: {"source_address":"0xbbda49855af861d6647a9722817385dd0e832b3b","amount":"0x12cb1c5fb8ac4f268"}
+Labels: []
+
+Timestamp: 2023-10-26T07:16:04.562Z
+Batch: 1698304564
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 cexName
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"0x7c3c75f1a3b7c00"}
+Labels: []
+
+Timestamp: 2023-10-26T07:20:50.347Z
+Batch: 1698304850
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 cexName
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"0x7c3c75f1a3b7c00"}
+Labels: []
+
+Timestamp: 2023-10-26T09:07:23.018Z
+Batch: 1698311243
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 cexName
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"559509990000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T09:10:06.454Z
+Batch: 1698311406
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 cexName
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"559509990000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T10:59:18.243Z
+Batch: 1698317958
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 (Cex)
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"559509990000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T12:32:34.444Z
+Batch: 1698323554
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 (0xa7efae728d2936e78bda97dc267687568dd593f3)
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"559509990000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T12:33:17.233Z
+Batch: 1698323597
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 0xa7efae728d2936e78bda97dc267687568dd593f3
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"559509990000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T12:39:51.059Z
+Batch: 1698323991
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"559509990000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T12:41:15.224Z
+Batch: 1698324075
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 undefined
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"559509990000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T12:44:57.781Z
+Batch: 1698324297
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"559509990000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T12:51:22.560Z
+Batch: 1698324682
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"559509990000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T12:59:32.345Z
+Batch: 1698325172
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 559509990000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 okex
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"559509990000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T13:24:59.176Z
+Batch: 1698326699
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 150231670000000000 UNKNOWN to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 okex
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"150231670000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T14:14:12.427Z
+Batch: 1698329652
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xdd4299aa228b02ab1df6d370f0a07824343972ef deposited 62491247257236605 UNKNOWN to CEX 0x28c6c06298d514db089934071355e5743bf21d60 binance
+Metadata: {"source_address":"0xdd4299aa228b02ab1df6d370f0a07824343972ef","amount":"62491247257236605"}
+Labels: []
+
+Timestamp: 2023-10-26T15:38:46.029Z
+Batch: 1698334726
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x8f75f72ca3acf333ca974103d220c522f1acff6e deposited 2998655483189030000 to CEX 0xa9d1e08c7793af67e9d92fe308d5697fb81d3e43 
+Metadata: {"source_address":"0x8f75f72ca3acf333ca974103d220c522f1acff6e","amount":"2998655483189030000"}
+Labels: []
+
+Timestamp: 2023-10-26T15:53:16.487Z
+Batch: 1698335596
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x8f75f72ca3acf333ca974103d220c522f1acff6e deposited 2998655483189030000 ETHto CEX 0xa9d1e08c7793af67e9d92fe308d5697fb81d3e43 
+Metadata: {"source_address":"0x8f75f72ca3acf333ca974103d220c522f1acff6e","amount":"2998655483189030000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:19.207Z
+Batch: 1698336499
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x0cac3d1a887206e0f6169222c4504301a8b4b993 deposited 6291200 ETH to CEX 0xa69babef1ca67a37ffaf7a485dfff3382056e78c 
+Metadata: {"source_address":"0x0cac3d1a887206e0f6169222c4504301a8b4b993","amount":"6291200"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:22.165Z
+Batch: 1698336502
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x8153280e18c74b1926ec6c5797a5f0f07328b76e deposited 0 ETH to CEX 0xb517850510997a34b4ddc8c3797b4f83fad510c4 
+Metadata: {"source_address":"0x8153280e18c74b1926ec6c5797a5f0f07328b76e","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:22.877Z
+Batch: 1698336502
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x6f69728a31d948a2af07653b356caf12e8b6bd68 deposited 198413390000000000 ETH to CEX 0xa7efae728d2936e78bda97dc267687568dd593f3 okex
+Metadata: {"source_address":"0x6f69728a31d948a2af07653b356caf12e8b6bd68","amount":"198413390000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:25.815Z
+Batch: 1698336505
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xd3c7d0f62cac0e02669ee9c78496620ab143034b deposited 0 ETH to CEX 0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad 
+Metadata: {"source_address":"0xd3c7d0f62cac0e02669ee9c78496620ab143034b","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:29.107Z
+Batch: 1698336509
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xae2fc483527b8ef99eb5d9b44875f005ba1fae13 deposited 182812185 ETH to CEX 0x6b75d8af000000e20b7a7ddf000ba900b4009a80 
+Metadata: {"source_address":"0xae2fc483527b8ef99eb5d9b44875f005ba1fae13","amount":"182812185"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:32.022Z
+Batch: 1698336512
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xc6b56e262120e32bd6d95ff27717ca2c91c8fc88 deposited 60000000000000000 ETH to CEX 0x7a250d5630b4cf539739df2c5dacb4c659f2488d 
+Metadata: {"source_address":"0xc6b56e262120e32bd6d95ff27717ca2c91c8fc88","amount":"60000000000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:35.171Z
+Batch: 1698336515
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xb5d774ef48b8da83895506000c8eeff97815593a deposited 200000000000000000 ETH to CEX 0x3fc91a3afd70395cd496c647d5a6cc9d4b2b7fad 
+Metadata: {"source_address":"0xb5d774ef48b8da83895506000c8eeff97815593a","amount":"200000000000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:38.306Z
+Batch: 1698336518
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x955efb04f4e276a4d61de1d33c517b2789fbf17f deposited 200000000000000000 ETH to CEX 0xb517850510997a34b4ddc8c3797b4f83fad510c4 
+Metadata: {"source_address":"0x955efb04f4e276a4d61de1d33c517b2789fbf17f","amount":"200000000000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:41.273Z
+Batch: 1698336521
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xcaa483faeaf9d58a928dc12a950ecdfd257a4a3a deposited 100000000000000000 ETH to CEX 0x80a64c6d7f12c47b7c66c5b4e20e72bc1fcd5d9e 
+Metadata: {"source_address":"0xcaa483faeaf9d58a928dc12a950ecdfd257a4a3a","amount":"100000000000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:44.168Z
+Batch: 1698336524
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xae2fc483527b8ef99eb5d9b44875f005ba1fae13 deposited 187646374 ETH to CEX 0x6b75d8af000000e20b7a7ddf000ba900b4009a80 
+Metadata: {"source_address":"0xae2fc483527b8ef99eb5d9b44875f005ba1fae13","amount":"187646374"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:47.540Z
+Batch: 1698336527
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xf81aa2eee1f279d22f24f971105ee29ed5567ebb deposited 0 ETH to CEX 0x4025ee6512dbbda97049bcf5aa5d38c54af6be8a 
+Metadata: {"source_address":"0xf81aa2eee1f279d22f24f971105ee29ed5567ebb","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:50.487Z
+Batch: 1698336530
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x79d294352ee4e1229b23d6ed24245d4386c17cb1 deposited 0 ETH to CEX 0xaa46a59e0c975fa844141969de0b997102a63b9b 
+Metadata: {"source_address":"0x79d294352ee4e1229b23d6ed24245d4386c17cb1","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:53.330Z
+Batch: 1698336533
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x0d260d8ad1ccae73f0d53be60ff6aa6ed94a01fc deposited 0 ETH to CEX 0xdb5889e35e379ef0498aae126fc2cce1fbd23216 
+Metadata: {"source_address":"0x0d260d8ad1ccae73f0d53be60ff6aa6ed94a01fc","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:56.678Z
+Batch: 1698336536
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x3b61cba3e0c01b4b5a6f2877e5db967c6dc0d367 deposited 50000000000000000 ETH to CEX 0x7a250d5630b4cf539739df2c5dacb4c659f2488d 
+Metadata: {"source_address":"0x3b61cba3e0c01b4b5a6f2877e5db967c6dc0d367","amount":"50000000000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:08:59.636Z
+Batch: 1698336539
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x1ce833da90e8ed544ca1b6686e52e5b90ae3095d deposited 0 ETH to CEX 0x1111111254eeb25477b68fb85ed929f73a960582 
+Metadata: {"source_address":"0x1ce833da90e8ed544ca1b6686e52e5b90ae3095d","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:09:03.060Z
+Batch: 1698336543
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xbf2d5d8ebf05947245b3d7f38b2776a6a49710dd deposited 13983488 ETH to CEX 0x5050e08626c499411b5d0e0b5af0e83d3fd82edf 
+Metadata: {"source_address":"0xbf2d5d8ebf05947245b3d7f38b2776a6a49710dd","amount":"13983488"}
+Labels: []
+
+Timestamp: 2023-10-26T16:09:06.222Z
+Batch: 1698336546
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xe93685f3bba03016f02bd1828badd6195988d950 deposited 0 ETH to CEX 0x902f09715b6303d4173037652fa7377e5b98089e 
+Metadata: {"source_address":"0xe93685f3bba03016f02bd1828badd6195988d950","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:09:09.033Z
+Batch: 1698336549
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x7f2167df1f363f4af9f3164182464d62717ed59d deposited 0 ETH to CEX 0xdac17f958d2ee523a2206206994597c13d831ec7 
+Metadata: {"source_address":"0x7f2167df1f363f4af9f3164182464d62717ed59d","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:09:11.913Z
+Batch: 1698336551
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xc252ceec3ad24c47657638c323d96249a9f1b42a deposited 4 ETH to CEX 0xd1742b3c4fbb096990c8950fa635aec75b30781a 
+Metadata: {"source_address":"0xc252ceec3ad24c47657638c323d96249a9f1b42a","amount":"4"}
+Labels: []
+
+Timestamp: 2023-10-26T16:09:14.973Z
+Batch: 1698336554
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x065e3dbafcb2c26a978720f9eb4bce6ad9d644a1 deposited 6621696 ETH to CEX 0xa69babef1ca67a37ffaf7a485dfff3382056e78c 
+Metadata: {"source_address":"0x065e3dbafcb2c26a978720f9eb4bce6ad9d644a1","amount":"6621696"}
+Labels: []
+
+Timestamp: 2023-10-26T16:09:18.198Z
+Batch: 1698336558
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xda5dd51a8869aa961b13a3fcae5ef5e2cd565bef deposited 0 ETH to CEX 0x1111111254eeb25477b68fb85ed929f73a960582 
+Metadata: {"source_address":"0xda5dd51a8869aa961b13a3fcae5ef5e2cd565bef","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:09:21.585Z
+Batch: 1698336561
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xdf1950938ef9105718fba1a93e664727a00daed7 deposited 0 ETH to CEX 0x8716982abd184355ad23dc04db76417d1954ce2f 
+Metadata: {"source_address":"0xdf1950938ef9105718fba1a93e664727a00daed7","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:09:24.736Z
+Batch: 1698336564
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x7b8dfb8ecb42f1ad575de1092a0c04c2eff2c736 deposited 0 ETH to CEX 0x5f451666c472aee641bdde224a2d143b566fe729 
+Metadata: {"source_address":"0x7b8dfb8ecb42f1ad575de1092a0c04c2eff2c736","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:09:27.797Z
+Batch: 1698336567
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x55504b38b4e5dafd5d328ef756ea3a255fa211ff deposited 0 ETH to CEX 0x734a46138cae12d1e9f63f1e227d355bd4ca206e 
+Metadata: {"source_address":"0x55504b38b4e5dafd5d328ef756ea3a255fa211ff","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:09:30.950Z
+Batch: 1698336570
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x46340b20830761efd32832a74d7169b29feb9758 deposited 0 ETH to CEX 0xdac17f958d2ee523a2206206994597c13d831ec7 
+Metadata: {"source_address":"0x46340b20830761efd32832a74d7169b29feb9758","amount":"0"}
+Labels: []
+
+Timestamp: 2023-10-26T16:21:09.351Z
+Batch: 1698337269
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x8f75f72ca3acf333ca974103d220c522f1acff6e deposited 2998655483189030000 ETH to CEX 0xa9d1e08c7793af67e9d92fe308d5697fb81d3e43 
+Metadata: {"source_address":"0x8f75f72ca3acf333ca974103d220c522f1acff6e","amount":"2998655483189030000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:21:27.489Z
+Batch: 1698337287
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x8f75f72ca3acf333ca974103d220c522f1acff6e deposited 2998655483189030000 ETH to CEX 0xa9d1e08c7793af67e9d92fe308d5697fb81d3e43 
+Metadata: {"source_address":"0x8f75f72ca3acf333ca974103d220c522f1acff6e","amount":"2998655483189030000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:24:59.010Z
+Batch: 1698337499
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x8f75f72ca3acf333ca974103d220c522f1acff6e deposited 2998655483189030000 ETH to CEX 0xa9d1e08c7793af67e9d92fe308d5697fb81d3e43 
+Metadata: {"source_address":"0x8f75f72ca3acf333ca974103d220c522f1acff6e","amount":"2998655483189030000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:30:00.705Z
+Batch: 1698337800
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x2b7c61ac1af1ee5b0f47d828ced3763fffbbaa6c deposited 1933832151687529400 ETH to CEX 0x28c6c06298d514db089934071355e5743bf21d60 binance
+Metadata: {"source_address":"0x2b7c61ac1af1ee5b0f47d828ced3763fffbbaa6c","amount":"1933832151687529400"}
+Labels: []
+
+Timestamp: 2023-10-26T16:36:56.251Z
+Batch: 1698338216
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xfea9f61ea432f92908fdded4cef820475c66cb87 deposited 56194531056916000 ETH to CEX 0x28c6c06298d514db089934071355e5743bf21d60 binance
+Metadata: {"source_address":"0xfea9f61ea432f92908fdded4cef820475c66cb87","amount":"56194531056916000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:36:57.624Z
+Batch: 1698338217
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0xbbda49855af861d6647a9722817385dd0e832b3b deposited 21667316966411793000 ETH to CEX 0xdb044b8298e04d442fdbe5ce01b8cc8f77130e33 
+Metadata: {"source_address":"0xbbda49855af861d6647a9722817385dd0e832b3b","amount":"21667316966411793000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:36:59.188Z
+Batch: 1698338219
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x058caaced701ec20b098b0f278fdc34fead8ff05 deposited 53043023316497063 ETH to CEX 0xf89d7b9c864f589bbf53a82105107622b35eaa40 
+Metadata: {"source_address":"0x058caaced701ec20b098b0f278fdc34fead8ff05","amount":"53043023316497063"}
+Labels: []
+
+Timestamp: 2023-10-26T16:37:02.304Z
+Batch: 1698338222
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x0de419475aeb9a5094161b451adcc66035ad3621 deposited 367000000000000000 ETH to CEX 0xf89d7b9c864f589bbf53a82105107622b35eaa40 
+Metadata: {"source_address":"0x0de419475aeb9a5094161b451adcc66035ad3621","amount":"367000000000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:37:05.843Z
+Batch: 1698338225
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x65aaf4bd414184b908811358e10a513d67c848a3 deposited 56016335156220351 ETH to CEX 0x28c6c06298d514db089934071355e5743bf21d60 binance
+Metadata: {"source_address":"0x65aaf4bd414184b908811358e10a513d67c848a3","amount":"56016335156220351"}
+Labels: []
+
+Timestamp: 2023-10-26T16:37:08.844Z
+Batch: 1698338228
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x80971a8ae9e785e69fc191cd41ac404ad5275329 deposited 55700000000000000 ETH to CEX 0x28c6c06298d514db089934071355e5743bf21d60 binance
+Metadata: {"source_address":"0x80971a8ae9e785e69fc191cd41ac404ad5275329","amount":"55700000000000000"}
+Labels: []
+
+Timestamp: 2023-10-26T16:38:59.431Z
+Batch: 1698338339
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x2b7c61ac1af1ee5b0f47d828ced3763fffbbaa6c deposited 1933832151687529400 ETH to CEX 0x28c6c06298d514db089934071355e5743bf21d60 binance
+Metadata: {"source_address":"0x2b7c61ac1af1ee5b0f47d828ced3763fffbbaa6c","amount":"1933832151687529400"}
+Labels: []
+
+Timestamp: 2023-10-26T16:40:45.578Z
+Batch: 1698338445
+Name: Known Scammer Asset Deposit
+Description: Known scammer 0x2b7c61ac1af1ee5b0f47d828ced3763fffbbaa6c deposited 1933832151687529400 ETH to CEX 0x28c6c06298d514db089934071355e5743bf21d60 binance
+Metadata: {"source_address":"0x2b7c61ac1af1ee5b0f47d828ced3763fffbbaa6c","amount":"1933832151687529400"}
+Labels: []
+

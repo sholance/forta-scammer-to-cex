@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import fs from 'fs';
 import { ZETTABLOCK_API_KEY } from './key';
+
 const API_KEY = ZETTABLOCK_API_KEY;
 
 const options = {
@@ -30,7 +31,8 @@ const options3 = {
     'X-API-KEY': API_KEY,
   },
 };
-const getCex = async (): Promise<void> => {
+
+export const getCex = async (): Promise<void> => {
   const MAX_TRIES = 3;
   let tries = 0;
 
@@ -87,7 +89,6 @@ const getCex = async (): Promise<void> => {
 
   const getResponse = async (queryrunId: string): Promise<string> => {
     const queryrunStatusEndpoint = `https://api.zettablock.com/api/v1/queryruns/${queryrunId}/status`;
-    let i = 1;
     while (true) {
       const res = await fetch(queryrunStatusEndpoint, options2);
       const state = (await res.json()).state;
@@ -95,10 +96,11 @@ const getCex = async (): Promise<void> => {
       if (state === 'SUCCEEDED' || state === 'FAILED') {
         return state;
       }
-      await new Promise((resolve) => setTimeout(resolve, i));
-      i += 1;
+      await new Promise((resolve) => setTimeout(resolve, 50)); 
     }
   };
+
+  const RETRY_DELAY_MS = 50; 
 
   while (tries < MAX_TRIES) {
     try {
@@ -114,9 +116,6 @@ const getCex = async (): Promise<void> => {
           URLparams;
         const res = await fetch(queryrunResultEndpoint, { ...options3 });
         const csvData = await res.text();
-        // console.log('Query Run Result (CSV):', csvData);
-
-        // Save CSV data to a file
         fs.writeFileSync('./result.csv', csvData, { encoding: 'utf8', flag: 'w' });
         console.log('CSV data saved to result.csv');
       } else {
@@ -129,9 +128,8 @@ const getCex = async (): Promise<void> => {
       if (tries === MAX_TRIES) {
         throw err;
       }
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+     await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
     }
   }
 };
 
-export { getCex };

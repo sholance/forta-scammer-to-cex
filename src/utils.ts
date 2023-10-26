@@ -1,6 +1,6 @@
 import { ethers, providers } from "ethers";
 import { SYMBOL_ABI_LIST } from "./constants";
-import { getEthersProvider } from "forta-agent";
+import { getEthersProvider, Network } from "forta-agent";
 
 export const getTokenSymbol = async (block: number, address: string): Promise<string> => {
     const provider = getEthersProvider()
@@ -16,3 +16,12 @@ export const getTokenSymbol = async (block: number, address: string): Promise<st
 
     return 'UNKNOWN';
 };
+export const NATIVE_TOKEN_SYMBOL: { [chainId: number]: string } = {
+    [Network.MAINNET]: 'ETH',
+    [Network.POLYGON]: 'MATIC',
+    [Network.BSC]: 'BSC',
+    [Network.ARBITRUM]: 'ARB',
+    [Network.OPTIMISM]: 'OP',
+    [Network.AVALANCHE]: 'AVAX',
+    [Network.FANTOM]: 'FTM',
+  };
