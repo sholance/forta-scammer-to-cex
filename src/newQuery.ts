@@ -55,7 +55,7 @@ export const getCex = async (): Promise<void> => {
       ethereum_mainnet.labels l ON t.to_address = l.address
     WHERE
       l."type" = 'owner'
-      AND l.name IN ('binance', 'coinbase', 'kraken', 'bitfinex', 'kucoin', 'bittrex', 'huobi', 'okex', 'bitstamp', 'gemini')
+      AND l.name IN ('binance', 'coinbase', 'kraken', 'bitfinex', 'poloniex', 'kucoin', 'bittrex', 'huobi', 'okex','okx','mexc','fixfloat', 'bitstamp', 'gemini')
       AND t.block_time >= CURRENT_TIMESTAMP - INTERVAL '30' DAY
       AND t.from_address NOT IN (SELECT address FROM ethereum_mainnet.contract_creations)
     ORDER BY
