@@ -14,7 +14,12 @@ import { getCex } from './newQuery';
 import { processFindings } from './processFindings';
 import { isScammer } from './scammerScan';
 import { getTokenSymbol, NATIVE_TOKEN_SYMBOL } from './utils';
-import { ALERT_ERC20_ASSET_DEPOSIT, ALERT_NATIVE_ASSET_DEPOSIT, CEX_ADDRESSES, CEX_ADDRESSES_v2 } from './constants';
+import {
+  ALERT_ERC20_ASSET_DEPOSIT,
+  ALERT_NATIVE_ASSET_DEPOSIT,
+  CEX_ADDRESSES,
+  CEX_ADDRESSES_v2,
+} from './constants';
 
 let transactionsProcessed = 0;
 let lastBlock = 0;
@@ -48,26 +53,40 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
     const { value } = transaction;
     const cexDepositAddress = to as string;
 
-    if (cexList.has(cexDepositAddress) || CEX_ADDRESSES.includes(cexDepositAddress) || CEX_ADDRESSES_v2.includes(cexDepositAddress)) {
+    if (
+      cexList.has(cexDepositAddress) ||
+      CEX_ADDRESSES.includes(cexDepositAddress) ||
+      CEX_ADDRESSES_v2.includes(cexDepositAddress)
+    ) {
       const block = txEvent.blockNumber;
       const isFromScammer = await isScammer(from); // Check if from address is a scammer
       const txValue = ethers.BigNumber.from(value);
 
       if (isFromScammer) {
-        const symbol = await getTokenSymbol(block, from);
-        const provider = getEthersProvider()
+        const provider = getEthersProvider();
+        const { chainId } = await provider.getNetwork();
+        let symbol = NATIVE_TOKEN_SYMBOL[chainId];
+
+        if (symbol === '') {
+          symbol = await getTokenSymbol(block, from);
+        }
+
         const cexInfo = getCexInfo(cexDepositAddress);
-        const {chainId} = await provider.getNetwork()
         findings.push(
           Finding.fromObject({
             name: 'Known Scammer Asset Deposit',
-            description: `Known scammer ${from} deposited ${txValue} ${NATIVE_TOKEN_SYMBOL[chainId]} to CEX ${cexDepositAddress} ${cexInfo.name}`,
-            alertId: ALERT_NATIVE_ASSET_DEPOSIT,
+            description: `Known scammer ${from} deposited ${txValue} ${
+              symbol === '' ? 'UNKNOWN' : symbol
+            } to CEX ${cexDepositAddress} ${cexInfo.name === '' ? 'UNKNOWN' : cexInfo.name}`,
+            alertId: symbol === '' ? ALERT_ERC20_ASSET_DEPOSIT : ALERT_NATIVE_ASSET_DEPOSIT,
             severity: FindingSeverity.Low,
             type: FindingType.Info,
             metadata: {
               source_address: from,
               amount: `${txValue}`,
+              symbol: `${symbol === '' ? 'UNKNOWN' : symbol}`,
+              CEX_deposit_address: to!,
+              CEX_name: `${cexInfo.name === '' ? 'UNKNOWN' : cexInfo.name}`,
             },
           })
         );
