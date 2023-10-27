@@ -31,6 +31,7 @@ const initialize: Initialize = async () => {
   const fileExists = fs.existsSync(csvFilePath);
 
   if (!fileExists) {
+    console.log('Running query to getCex')
     await getCex();
   } else {
     console.log('CSV file exists. Skipping getCex query.');
@@ -71,7 +72,7 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
           symbol = await getTokenSymbol(block, from);
         }
 
-        const cexInfo = getCexInfo(cexDepositAddress);
+        const cexInfo = await getCexInfo(cexDepositAddress);
         findings.push(
           Finding.fromObject({
             name: 'Known Scammer Asset Deposit',

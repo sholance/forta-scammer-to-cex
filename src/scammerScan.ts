@@ -13,7 +13,7 @@ export async function isScammer(address: string): Promise<boolean> {
             console.log('Label found for address:', address);
             return true; // Return true indicating successful label fetching
         } else {
-            console.log('no label found')
+            console.log('no label found for:', address)
             return false; // Return false if the label is not present or null
         }
     } catch (error) {
