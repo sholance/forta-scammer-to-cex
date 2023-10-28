@@ -25,13 +25,15 @@ let transactionsProcessed = 0;
 let lastBlock = 0;
 let cexList: Set<string> = new Set();
 let addresses: Map<string, { name: string }> = new Map();
+let addresses2: { to_address: string; from_address: string; name: string }[] = [];
+
 
 const initialize: Initialize = async () => {
   const csvFilePath = path.resolve(__dirname, '../result.csv');
   const fileExists = fs.existsSync(csvFilePath);
 
   if (!fileExists) {
-    console.log('Running query to getCex')
+    console.log('Running query to getCex');
     await getCex();
   } else {
     console.log('CSV file exists. Skipping getCex query.');
@@ -53,7 +55,6 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
     const { from, to, transaction } = txEvent;
     const { value } = transaction;
     const cexDepositAddress = to as string;
-
     if (
       cexList.has(cexDepositAddress) ||
       CEX_ADDRESSES.includes(cexDepositAddress) ||
@@ -69,7 +70,7 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
         let symbol = NATIVE_TOKEN_SYMBOL[chainId];
 
         if (symbol === '') {
-          symbol = await getTokenSymbol(block, from);
+          symbol = await getTokenSymbol(block -1, from);
         }
 
         const cexInfo = await getCexInfo(cexDepositAddress);
@@ -78,7 +79,7 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
             name: 'Known Scammer Asset Deposit',
             description: `Known scammer ${from} deposited ${txValue} ${
               symbol === '' ? 'UNKNOWN' : symbol
-            } to CEX ${cexDepositAddress} ${cexInfo.name === '' ? 'UNKNOWN' : cexInfo.name}`,
+            } to CEX ${cexDepositAddress} ${cexInfo.name}`,
             alertId: symbol === '' ? ALERT_ERC20_ASSET_DEPOSIT : ALERT_NATIVE_ASSET_DEPOSIT,
             severity: FindingSeverity.Low,
             type: FindingType.Info,
@@ -87,7 +88,7 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
               amount: `${txValue}`,
               symbol: `${symbol === '' ? 'UNKNOWN' : symbol}`,
               CEX_deposit_address: to!,
-              CEX_name: `${cexInfo.name === '' ? 'UNKNOWN' : cexInfo.name}`,
+              CEX_name: `${cexInfo.name}`,
             },
           })
         );
@@ -102,35 +103,46 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
   return findings;
 }
 
+
 const inputFile = path.resolve(__dirname, '../result.csv');
 
 async function readAddressesFromFile(): Promise<void> {
-  const parser = fs
-    .createReadStream(inputFile)
-    .pipe(
+  return new Promise<void>((resolve, reject) => {
+    const parser = fs.createReadStream(inputFile).pipe(
       parse({
         delimiter: ',',
         columns: true,
       })
     );
 
-  parser
-    .on('data', function (record) {
-      addresses.set(record.to_address, { name: record.name });
-      cexList.add(record.to_address);
-    })
-    .on('error', function (error) {
-      console.error('An error occurred while parsing the CSV file:', error);
-    })
-    .on('end', function () {
-      console.log(addresses.size);
-    });
+    parser
+      .on('data', function (record) {
+        addresses2.push({
+          to_address: record.to_address,
+          from_address: record.from_address,
+          name: record.name,
+        });
+        const { to_address, name } = record;
+        addresses.set(to_address, { name });
+        cexList.add(to_address);
+      })
+      .on('error', function (error) {
+        console.error('An error occurred while parsing the CSV file:', error);
+        reject(error);
+      })
+      .on('end', function () {
+        console.log('CSV file parsing completed.');
+        // console.log('Number of sec address list', addresses2.length)
+        // console.log('Number of addresses:', addresses.size);
+        // console.log('Number of cexes:', cexList.size);
+        resolve();
+      });
+  });
 }
 
 function getCexInfo(address: string): { name: string } {
-  return addresses.get(address) || { name: '' };
+  return addresses2.find((item) => item.to_address.toLowerCase() === address.toLowerCase()) || { name: '' };
 }
-
 export default {
   initialize,
   handleTransaction,
