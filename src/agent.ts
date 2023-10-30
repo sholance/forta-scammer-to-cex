@@ -55,10 +55,10 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
     const { from, to, transaction } = txEvent;
     const { value } = transaction;
     const cexDepositAddress = to as string;
+    const isAddressInAddresses2 = addresses2.some((item) => item.to_address.toLowerCase() === cexDepositAddress.toLowerCase());
     if (
-      cexList.has(cexDepositAddress) ||
-      CEX_ADDRESSES.includes(cexDepositAddress) ||
-      CEX_ADDRESSES_v2.includes(cexDepositAddress)
+      isAddressInAddresses2 ||
+      [CEX_ADDRESSES, CEX_ADDRESSES_v2].flat().includes(cexDepositAddress)
     ) {
       const block = txEvent.blockNumber;
       const isFromScammer = await isScammer(from); // Check if from address is a scammer

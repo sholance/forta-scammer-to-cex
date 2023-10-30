@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import fs from 'fs';
 import { ZETTABLOCK_API_KEY } from './key';
 
