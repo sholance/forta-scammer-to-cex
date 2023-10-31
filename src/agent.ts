@@ -76,10 +76,6 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
           const { chainId } = await provider.getNetwork();
           let symbol = NATIVE_TOKEN_SYMBOL[chainId];
 
-          // if (!symbol) {
-          //   symbol = await getTokenSymbol(block - 1, from);
-          // }
-
           const cexInfo = await getCexInfo(cexDepositAddress);
           findings.push(
             Finding.fromObject({
