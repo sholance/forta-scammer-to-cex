@@ -19,7 +19,7 @@ export const getTokenSymbol = async (block: number, address: string): Promise<st
 export const NATIVE_TOKEN_SYMBOL: { [chainId: number]: string } = {
     [Network.MAINNET]: 'ETH',
     [Network.POLYGON]: 'MATIC',
-    [Network.BSC]: 'BSC',
+    [Network.BSC]: 'BNB',
     [Network.ARBITRUM]: 'ARB',
     [Network.OPTIMISM]: 'OP',
     [Network.AVALANCHE]: 'AVAX',
