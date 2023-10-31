@@ -32,12 +32,9 @@ const textOptions = {
     'X-API-KEY': API_KEY,
   },
 };
-
 export const getCex = async (): Promise<void> => {
   const MAX_TRIES = 3;
   let tries = 0;
-
-  ;
 
   console.log('Starting query execution...');
 
@@ -60,7 +57,7 @@ export const getCex = async (): Promise<void> => {
   console.log('Query Run ID:', queryrunId);
 
   const dataLakeSubmissionEndpoints = `${ZETTABLOCK_API_URL}/queries/${queryrunId}/trigger`;
-  const submissionRes = await fetch(dataLakeSubmissionEndpoints, baseOptions);
+  const submissionRes = await fetch(dataLakeSubmissionEndpoints, jsonOptions);
   const submissionResult = await submissionRes.json();
   const submissionQueryrunId = submissionResult.queryrunId;
   console.log('Submission Result:', submissionResult);
@@ -74,11 +71,11 @@ export const getCex = async (): Promise<void> => {
       if (state === 'SUCCEEDED' || state === 'FAILED') {
         return state;
       }
-      await new Promise((resolve) => setTimeout(resolve, 50));
+      await new Promise((resolve) => setTimeout(resolve, 50)); 
     }
   };
 
-  const RETRY_DELAY_MS = 50;
+  const RETRY_DELAY_MS = 50; 
 
   while (tries < MAX_TRIES) {
     try {
@@ -92,12 +89,16 @@ export const getCex = async (): Promise<void> => {
           `${ZETTABLOCK_API_URL}/stream/queryruns/${submissionQueryrunId}/result` +
           '?' +
           URLparams;
-        const res = await fetch(queryrunResultEndpoint, textOptions);
+        const res = await fetch(queryrunResultEndpoint, { ...textOptions });
         const csvData = await res.text();
         fs.writeFileSync('./result.csv', csvData, { encoding: 'utf8', flag: 'w' });
         console.log('CSV data saved to result.csv');
-      } else {
+      }
+      else if (response === 'FAILED') {
         console.log('Query failed. Please check the status message for details.');
+      }
+      else {
+        console.log('Unexpected query result status:', response);
       }
       break;
     } catch (err) {
