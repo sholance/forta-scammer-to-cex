@@ -17,8 +17,6 @@ import { getTokenSymbol, NATIVE_TOKEN_SYMBOL } from './utils';
 import {
   ALERT_ERC20_ASSET_DEPOSIT,
   ALERT_NATIVE_ASSET_DEPOSIT,
-  CEX_ADDRESSES,
-  CEX_ADDRESSES_v2,
   ERC20_TRANSFER_FUNCTION,
 } from './constants';
 import { STATIC_CEX_ADDRESSES } from './staticAddresses';
