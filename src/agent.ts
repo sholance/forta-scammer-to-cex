@@ -67,7 +67,6 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
       const addressInStaticCexAddresses = STATIC_CEX_ADDRESSES[chainId].some((item) => item.address.toLowerCase() === cexDepositAddress.toLowerCase());
       const addressInAddressesList = addressList.some((item) => item.to_address.toLowerCase() === cexDepositAddress.toLowerCase());
       if (addressInAddressesList || addressInStaticCexAddresses) {
-        const block = txEvent.blockNumber;
         const isFromScammer = await isScammer(from); // Check if from address is a scammer
         const txValue = ethers.utils.formatEther(value);
 
@@ -183,9 +182,26 @@ async function readAddressesFromFile(): Promise<void> {
   });
 }
 
-function getCexInfo(address: string): { name: string } {
-  return addressList.find((item) => item.to_address.toLowerCase() === address.toLowerCase()) || { name: '' };
+async function getCexInfo(address: string): Promise<{ name: string }> {
+  const provider = getEthersProvider();
+  const { chainId } = await provider.getNetwork();
+  const staticCex = STATIC_CEX_ADDRESSES[chainId]?.find(
+    (item) => item.address.toLowerCase() === address.toLowerCase()
+  );
+  if (staticCex) {
+    return { name: staticCex.name };
+  }
+
+  const addressListItem = addressList.find(
+    (item) => item.to_address.toLowerCase() === address.toLowerCase()
+  );
+  if (addressListItem) {
+    return { name: addressListItem.name };
+  }
+
+  return { name: "" };
 }
+
 export default {
   initialize,
   handleTransaction,
