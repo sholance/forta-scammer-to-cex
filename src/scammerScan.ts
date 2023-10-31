@@ -1,4 +1,4 @@
-import { Label, LabelsResponse, getLabels } from "forta-agent";
+import { LabelsResponse, getLabels } from "forta-agent";
 import { SCAMMER_BOT_ID } from "./constants";
 
 export async function isScammer(address: string): Promise<boolean> {
@@ -13,12 +13,16 @@ export async function isScammer(address: string): Promise<boolean> {
             console.log('Label found for address:', address);
             return true; // Return true indicating successful label fetching
         } else {
-            console.log(results)
             console.log('no label found for:', address)
             return false; // Return false if the label is not present or null
         }
     } catch (error) {
-        console.error('An error occurred during label fetching:', error);
+        if (typeof error === "string") {
+            console.log("An error occurred during label fetching:", error);
+        } else if (error instanceof Error) {
+            console.error("An error occurred during label fetching:", error.message);
+        }
         return false; // Return false indicating failed label fetching
     }
+
 }

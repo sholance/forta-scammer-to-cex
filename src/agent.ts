@@ -19,13 +19,15 @@ import {
   ALERT_NATIVE_ASSET_DEPOSIT,
   CEX_ADDRESSES,
   CEX_ADDRESSES_v2,
+  ERC20_TRANSFER_FUNCTION,
 } from './constants';
 
 let transactionsProcessed = 0;
+
 let lastBlock = 0;
 let cexList: Set<string> = new Set();
 let addresses: Map<string, { name: string }> = new Map();
-let addresses2: { to_address: string; from_address: string; name: string }[] = [];
+let addressList: { to_address: string; from_address: string; name: string }[] = [];
 
 
 const initialize: Initialize = async () => {
@@ -52,41 +54,77 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
   transactionsProcessed += 1;
 
   try {
-    const { from, to, transaction } = txEvent;
-    const { value } = transaction;
-    const cexDepositAddress = to as string;
-    const isAddressInAddresses2 = addresses2.some((item) => item.to_address.toLowerCase() === cexDepositAddress.toLowerCase());
-    if (
-      isAddressInAddresses2 ||
-      [CEX_ADDRESSES, CEX_ADDRESSES_v2].flat().includes(cexDepositAddress)
-    ) {
+    const {
+      from,
+      to,
+      transaction: { value, data },
+    } = txEvent;
+
+    if (to && value != "0x0") {
+      // Native transfer
+      const cexDepositAddress = to as string;
+      const isAddressInAddressesList = addressList.some((item) => item.to_address.toLowerCase() === cexDepositAddress.toLowerCase());
+      if (isAddressInAddressesList || [CEX_ADDRESSES, CEX_ADDRESSES_v2].flat().includes(cexDepositAddress)) {
+        const block = txEvent.blockNumber;
+        const isFromScammer = await isScammer(from); // Check if from address is a scammer
+        const txValue = ethers.utils.formatEther(value);
+
+        if (isFromScammer) {
+          const provider = getEthersProvider();
+          const { chainId } = await provider.getNetwork();
+          let symbol = NATIVE_TOKEN_SYMBOL[chainId];
+
+          // if (!symbol) {
+          //   symbol = await getTokenSymbol(block - 1, from);
+          // }
+
+          const cexInfo = await getCexInfo(cexDepositAddress);
+          findings.push(
+            Finding.fromObject({
+              name: 'Known Scammer Asset Deposit',
+              description: `Known scammer ${from} deposited ${txValue} ${symbol} to CEX ${cexDepositAddress} ${cexInfo.name}`,
+              alertId: ALERT_NATIVE_ASSET_DEPOSIT,
+              severity: FindingSeverity.Low,
+              type: FindingType.Info,
+              metadata: {
+                source_address: from,
+                amount: `${txValue}`,
+                symbol: `${symbol}`,
+                CEX_deposit_address: to,
+                CEX_name: `${cexInfo.name}`,
+              },
+            })
+          );
+        }
+      }
+    }
+    const transferFunctions = txEvent.filterFunction(ERC20_TRANSFER_FUNCTION);
+
+    if (transferFunctions.length) {
+      // ERC-20 transfer
+      const erc20ContractAddress = from as string;
+      const cexDepositAddress = to as string;
+
+      const erc20TokenValue = ethers.BigNumber.from(data);
+
       const block = txEvent.blockNumber;
       const isFromScammer = await isScammer(from); // Check if from address is a scammer
-      const txValue = ethers.BigNumber.from(value);
+      let symbol = await getTokenSymbol(block - 1, erc20ContractAddress);
 
       if (isFromScammer) {
-        const provider = getEthersProvider();
-        const { chainId } = await provider.getNetwork();
-        let symbol = NATIVE_TOKEN_SYMBOL[chainId];
-
-        if (symbol === '') {
-          symbol = await getTokenSymbol(block -1, from);
-        }
-
-        const cexInfo = await getCexInfo(cexDepositAddress);
+        const cexInfo = await getCexInfo(erc20ContractAddress);
         findings.push(
           Finding.fromObject({
-            name: 'Known Scammer Asset Deposit',
-            description: `Known scammer ${from} deposited ${txValue} ${
-              symbol === '' ? 'UNKNOWN' : symbol
-            } to CEX ${cexDepositAddress} ${cexInfo.name}`,
-            alertId: symbol === '' ? ALERT_ERC20_ASSET_DEPOSIT : ALERT_NATIVE_ASSET_DEPOSIT,
+            name: 'Known Scammer ERC-20 Asset Deposit',
+            description: `Known scammer ${from} deposited ${erc20TokenValue} ${symbol} to CEX ${cexDepositAddress} ${cexInfo.name}`,
+            alertId: ALERT_ERC20_ASSET_DEPOSIT,
             severity: FindingSeverity.Low,
             type: FindingType.Info,
             metadata: {
               source_address: from,
-              amount: `${txValue}`,
-              symbol: `${symbol === '' ? 'UNKNOWN' : symbol}`,
+              amount: `${erc20TokenValue}`,
+              symbol: `${symbol}`,
+              ERC_20_contract_address: erc20ContractAddress,
               CEX_deposit_address: to!,
               CEX_name: `${cexInfo.name}`,
             },
@@ -94,6 +132,7 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
         );
       }
     }
+
   } catch (error) {
     console.error('An error occurred while processing the transaction:', error);
   }
@@ -102,6 +141,7 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
 
   return findings;
 }
+
 
 
 const inputFile = path.resolve(__dirname, '../result.csv');
@@ -117,7 +157,7 @@ async function readAddressesFromFile(): Promise<void> {
 
     parser
       .on('data', function (record) {
-        addresses2.push({
+        addressList.push({
           to_address: record.to_address,
           from_address: record.from_address,
           name: record.name,
@@ -132,16 +172,13 @@ async function readAddressesFromFile(): Promise<void> {
       })
       .on('end', function () {
         console.log('CSV file parsing completed.');
-        // console.log('Number of sec address list', addresses2.length)
-        // console.log('Number of addresses:', addresses.size);
-        // console.log('Number of cexes:', cexList.size);
         resolve();
       });
   });
 }
 
 function getCexInfo(address: string): { name: string } {
-  return addresses2.find((item) => item.to_address.toLowerCase() === address.toLowerCase()) || { name: '' };
+  return addressList.find((item) => item.to_address.toLowerCase() === address.toLowerCase()) || { name: '' };
 }
 export default {
   initialize,

@@ -1,28 +1,29 @@
-import fetch from 'node-fetch';
 import fs from 'fs';
 import { ZETTABLOCK_API_KEY } from './key';
+import { query, ZETTABLOCK_API_URL } from './constants';
 
 const API_KEY = ZETTABLOCK_API_KEY;
 
-const options = {
+const baseOptions = {
+  headers: {
+    accept: 'application/json',
+    'content-type': 'application/json',
+    'X-API-KEY': API_KEY,
+  },
+};
+
+const jsonOptions = {
+  ...baseOptions,
   method: 'POST',
-  headers: {
-    accept: 'application/json',
-    'content-type': 'application/json',
-    'X-API-KEY': API_KEY,
-  },
 };
 
-const options2 = {
+const getOptions = {
+  ...baseOptions,
   method: 'GET',
-  headers: {
-    accept: 'application/json',
-    'content-type': 'application/json',
-    'X-API-KEY': API_KEY,
-  },
 };
 
-const options3 = {
+const textOptions = {
+  ...baseOptions,
   method: 'GET',
   headers: {
     accept: 'plain/text',
@@ -36,37 +37,14 @@ export const getCex = async (): Promise<void> => {
   const MAX_TRIES = 3;
   let tries = 0;
 
-  const query = `
-    SELECT
-      t.from_address,
-      t.to_address,
-      t.hash,
-      t.block_time,
-      l.address,
-      l.author,
-      l.id,
-      l.name,
-      l.source,
-      l.type,
-      l.process_time
-    FROM
-      ethereum_mainnet.transactions t
-    JOIN
-      ethereum_mainnet.labels l ON t.to_address = l.address
-    WHERE
-      l."type" = 'owner'
-      AND l.name IN ('binance', 'coinbase', 'kraken', 'bitfinex','binanceus','bitgo team','bittrue', 'poloniex', 'kucoin', 'bittrex','crypto.com','binance 15','gateio','peatio', 'huobi', 'okex','okx','mexc','fixfloat', 'bitstamp', 'gemini')
-      AND t.block_time >= CURRENT_TIMESTAMP - INTERVAL '30' DAY
-      AND t.from_address NOT IN (SELECT address FROM ethereum_mainnet.contract_creations)
-    ORDER BY
-      t.block_number
-  `;
+  ;
+
   console.log('Starting query execution...');
 
   const createQueryRes = await fetch(
-    'https://api.zettablock.com/api/v1/databases/AwsDataCatalog/queries',
+    `${ZETTABLOCK_API_URL}/databases/AwsDataCatalog/queries`,
     {
-      ...options,
+      ...jsonOptions,
       body: JSON.stringify({ query }),
     }
   );
@@ -81,26 +59,26 @@ export const getCex = async (): Promise<void> => {
   const queryrunId = createQueryData.id;
   console.log('Query Run ID:', queryrunId);
 
-  const dataLakeSubmissionEndpoints = `https://api.zettablock.com/api/v1/queries/${queryrunId}/trigger`;
-  const submissionRes = await fetch(dataLakeSubmissionEndpoints, options);
+  const dataLakeSubmissionEndpoints = `${ZETTABLOCK_API_URL}/queries/${queryrunId}/trigger`;
+  const submissionRes = await fetch(dataLakeSubmissionEndpoints, baseOptions);
   const submissionResult = await submissionRes.json();
   const submissionQueryrunId = submissionResult.queryrunId;
   console.log('Submission Result:', submissionResult);
 
   const getResponse = async (queryrunId: string): Promise<string> => {
-    const queryrunStatusEndpoint = `https://api.zettablock.com/api/v1/queryruns/${queryrunId}/status`;
+    const queryrunStatusEndpoint = `${ZETTABLOCK_API_URL}/queryruns/${queryrunId}/status`;
     while (true) {
-      const res = await fetch(queryrunStatusEndpoint, options2);
+      const res = await fetch(queryrunStatusEndpoint, getOptions);
       const state = (await res.json()).state;
       console.log('Query Run Status:', state);
       if (state === 'SUCCEEDED' || state === 'FAILED') {
         return state;
       }
-      await new Promise((resolve) => setTimeout(resolve, 50)); 
+      await new Promise((resolve) => setTimeout(resolve, 50));
     }
   };
 
-  const RETRY_DELAY_MS = 50; 
+  const RETRY_DELAY_MS = 50;
 
   while (tries < MAX_TRIES) {
     try {
@@ -111,10 +89,10 @@ export const getCex = async (): Promise<void> => {
         const params = { includeColumnName: 'true' };
         const URLparams = new URLSearchParams(params).toString();
         const queryrunResultEndpoint =
-          `https://api.zettablock.com/api/v1/stream/queryruns/${submissionQueryrunId}/result` +
+          `${ZETTABLOCK_API_URL}/stream/queryruns/${submissionQueryrunId}/result` +
           '?' +
           URLparams;
-        const res = await fetch(queryrunResultEndpoint, { ...options3 });
+        const res = await fetch(queryrunResultEndpoint, textOptions);
         const csvData = await res.text();
         fs.writeFileSync('./result.csv', csvData, { encoding: 'utf8', flag: 'w' });
         console.log('CSV data saved to result.csv');
@@ -128,8 +106,7 @@ export const getCex = async (): Promise<void> => {
       if (tries === MAX_TRIES) {
         throw err;
       }
-     await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+      await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
     }
   }
 };
-
