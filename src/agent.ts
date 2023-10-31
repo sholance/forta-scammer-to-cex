@@ -21,6 +21,7 @@ import {
   CEX_ADDRESSES_v2,
   ERC20_TRANSFER_FUNCTION,
 } from './constants';
+import { STATIC_CEX_ADDRESSES } from './staticAddresses';
 
 let transactionsProcessed = 0;
 
@@ -63,8 +64,11 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
     if (to && value != "0x0") {
       // Native transfer
       const cexDepositAddress = to as string;
-      const isAddressInAddressesList = addressList.some((item) => item.to_address.toLowerCase() === cexDepositAddress.toLowerCase());
-      if (isAddressInAddressesList || [CEX_ADDRESSES, CEX_ADDRESSES_v2].flat().includes(cexDepositAddress)) {
+      const provider = getEthersProvider();
+      const { chainId } = await provider.getNetwork();
+      const addressInStaticCexAddresses = STATIC_CEX_ADDRESSES[chainId].some((item) => item.address.toLowerCase() === cexDepositAddress.toLowerCase());
+      const addressInAddressesList = addressList.some((item) => item.to_address.toLowerCase() === cexDepositAddress.toLowerCase());
+      if (addressInAddressesList || addressInStaticCexAddresses) {
         const block = txEvent.blockNumber;
         const isFromScammer = await isScammer(from); // Check if from address is a scammer
         const txValue = ethers.utils.formatEther(value);
@@ -110,7 +114,11 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
       const block = txEvent.blockNumber;
       const isFromScammer = await isScammer(from); // Check if from address is a scammer
       let symbol = await getTokenSymbol(block - 1, erc20ContractAddress);
-
+      const provider = getEthersProvider();
+      const { chainId } = await provider.getNetwork();
+      const addressInStaticCexAddresses = STATIC_CEX_ADDRESSES[chainId].some((item) => item.address.toLowerCase() === cexDepositAddress.toLowerCase());
+      const addressInAddressesList = addressList.some((item) => item.to_address.toLowerCase() === cexDepositAddress.toLowerCase());
+      if (addressInAddressesList || addressInStaticCexAddresses) {
       if (isFromScammer) {
         const cexInfo = await getCexInfo(erc20ContractAddress);
         findings.push(
@@ -131,6 +139,7 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
           })
         );
       }
+    }
     }
 
   } catch (error) {

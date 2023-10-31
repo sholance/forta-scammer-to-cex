@@ -28,3 +28,8 @@ Each alert includes the following metadata:
 `ERC-20-contract-address` (for ERC20-ASSET-DEPOSIT alert): The address of the ERC-20 contract.
 `CEX_deposit_address`: The CEX deposit address where the assets were transferred to.
 `CEX_name`: The name of the CEX (e.g., Binance, Coinbase).
+
+
+## Test Alert
+
+The bot can be tested with the transaction ```npm run tx 0x38874900fc71f0e3f9cfdf1216f1986e00ef3434cc43da1578820321c5d4637e```
