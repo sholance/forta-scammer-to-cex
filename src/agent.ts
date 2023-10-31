@@ -104,40 +104,43 @@ export async function handleTransaction(txEvent: TransactionEvent): Promise<Find
 
     if (transferFunctions.length) {
       // ERC-20 transfer
-      const erc20ContractAddress = from as string;
-      const cexDepositAddress = to as string;
-
-      const erc20TokenValue = ethers.BigNumber.from(data);
-
-      const block = txEvent.blockNumber;
-      const isFromScammer = await isScammer(from); // Check if from address is a scammer
-      let symbol = await getTokenSymbol(block - 1, erc20ContractAddress);
-      const provider = getEthersProvider();
-      const { chainId } = await provider.getNetwork();
-      const addressInStaticCexAddresses = STATIC_CEX_ADDRESSES[chainId].some((item) => item.address.toLowerCase() === cexDepositAddress.toLowerCase());
-      const addressInAddressesList = addressList.some((item) => item.to_address.toLowerCase() === cexDepositAddress.toLowerCase());
-      if (addressInAddressesList || addressInStaticCexAddresses) {
-      if (isFromScammer) {
-        const cexInfo = await getCexInfo(erc20ContractAddress);
-        findings.push(
-          Finding.fromObject({
-            name: 'Known Scammer ERC-20 Asset Deposit',
-            description: `Known scammer ${from} deposited ${erc20TokenValue} ${symbol} to CEX ${cexDepositAddress} ${cexInfo.name}`,
-            alertId: ALERT_ERC20_ASSET_DEPOSIT,
-            severity: FindingSeverity.Low,
-            type: FindingType.Info,
-            metadata: {
-              source_address: from,
-              amount: `${erc20TokenValue}`,
-              symbol: `${symbol}`,
-              ERC_20_contract_address: erc20ContractAddress,
-              CEX_deposit_address: to!,
-              CEX_name: `${cexInfo.name}`,
-            },
-          })
-        );
-      }
-    }
+      await Promise.all(
+        transferFunctions.map(async (transfer) => {
+          const erc20ContractAddress = transfer.address;
+          const cexDepositAddress = to as string;
+          const erc20TokenValue = ethers.BigNumber.from(data);
+          const block = txEvent.blockNumber;
+          const isFromScammer = await isScammer(from); // Check if from address is a scammer
+          let symbol = await getTokenSymbol(block - 1, erc20ContractAddress);
+          const provider = getEthersProvider();
+          const { chainId } = await provider.getNetwork();
+          const addressInStaticCexAddresses = STATIC_CEX_ADDRESSES[chainId].some((item) => item.address.toLowerCase() === cexDepositAddress.toLowerCase());
+          const addressInAddressesList = addressList.some((item) => item.to_address.toLowerCase() === cexDepositAddress.toLowerCase());
+          
+          if (addressInAddressesList || addressInStaticCexAddresses) {
+            if (isFromScammer) {
+              const cexInfo = await getCexInfo(cexDepositAddress);
+              findings.push(
+                Finding.fromObject({
+                  name: 'Known Scammer ERC-20 Asset Deposit',
+                  description: `Known scammer ${from} deposited ${erc20TokenValue} ${symbol} to CEX ${cexDepositAddress} ${cexInfo.name}`,
+                  alertId: ALERT_ERC20_ASSET_DEPOSIT,
+                  severity: FindingSeverity.Low,
+                  type: FindingType.Info,
+                  metadata: {
+                    source_address: from,
+                    amount: `${erc20TokenValue}`,
+                    symbol: `${symbol}`,
+                    ERC_20_contract_address: erc20ContractAddress,
+                    CEX_deposit_address: to!,
+                    CEX_name: `${cexInfo.name}`,
+                  },
+                })
+              );
+            }
+          }
+        })
+      );
     }
 
   } catch (error) {
