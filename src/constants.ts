@@ -28,7 +28,7 @@ JOIN
 WHERE
   l."type" = 'owner'
   AND l.name IN ('binance', 'coinbase', 'kraken', 'bitfinex','binanceus','bitgo team','bittrue', 'poloniex', 'kucoin', 'bittrex','crypto.com','binance 15','gateio','peatio', 'huobi', 'okex','okx','mexc','fixfloat', 'bitstamp', 'gemini')
-  AND t.block_time >= CURRENT_TIMESTAMP - INTERVAL '30' DAY
+  AND "data_creation_date" > DATE('2023-10-01')
   AND t.from_address NOT IN (SELECT address FROM ethereum_mainnet.contract_creations)
 ORDER BY
   t.block_number
