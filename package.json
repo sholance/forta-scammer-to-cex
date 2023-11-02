@@ -18,6 +18,10 @@
     "default": {
       "shards": 1,
       "target": 12
+    },
+    "56": {
+      "shards": 15,
+      "target": 3
     }
   },
   "scripts": {
