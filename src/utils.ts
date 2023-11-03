@@ -1,4 +1,4 @@
-import { ethers, providers } from "ethers";
+import { ethers } from "ethers";
 import { SYMBOL_ABI_LIST } from "./constants";
 import { getEthersProvider, Network } from "forta-agent";
 

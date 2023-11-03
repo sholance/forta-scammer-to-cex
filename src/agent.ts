@@ -22,7 +22,6 @@ import {
 import { STATIC_CEX_ADDRESSES } from './staticAddresses';
 
 let transactionsProcessed = 0;
-
 let lastBlock = 0;
 let cexList: Set<string> = new Set();
 let addresses: Map<string, { name: string }> = new Map();

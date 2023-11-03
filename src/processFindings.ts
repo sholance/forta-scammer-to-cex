@@ -20,12 +20,7 @@ export function processFindings(findings: Finding[]) {
   const logger = new Logger(logFilePath);
   const batchNumber = Math.floor(Date.now() / 1000); // Generate batch number based on current timestamp
 
-//   console.log(`Processing ${findings.length} findings in batch ${batchNumber}`);
-
   for (const finding of findings) {
     logger.logFinding(finding, batchNumber);
-    // console.log(`Finding: ${finding.name}`);
-    // console.log(`Description: ${finding.description}`);
-    // console.log('---');
   }
 }
