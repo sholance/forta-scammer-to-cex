@@ -4,7 +4,6 @@ export const ALERT_NATIVE_ASSET_DEPOSIT = 'NATIVE-ASSET-DEPOSIT';
 export const ALERT_ERC20_ASSET_DEPOSIT = 'ERC20-ASSET-DEPOSIT';
 export const ERC_721_TRANSFER_EVENT =
   "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)";
-export const TRANSFER_EVENT = "event Transfer(address indexed from, address indexed to, uint256 value)";
 export const ZETTABLOCK_API_URL = 'https://api.zettablock.com/api/v1';
 export const query = `
 SELECT
